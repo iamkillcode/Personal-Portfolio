@@ -6,6 +6,11 @@
 
     --mainText:black;
     --secondaryText:#4b5156;
+
+    --themeDotBorder: #24292e;
+
+    --previewBg:rgb(251, 249, 243, 0.8);
+    --previewShadow: #f0ead6;
 }
 
 
@@ -63,33 +68,223 @@ h6  {font-size: 16px;}
     display: grid;
     text-align: center;
     align-content: center;
-    border: 2px dashed blueviolet;
+    /* border: 2px dashed blueviolet; */
     min-height: 10em;
 }
 
 .intro-wrapper{
     background-color: var(--secondaryColor);
     border: 1px solid var(--borderColor);
+    border-radius:5px 5px 0 0;
+
+
     --webkit-box-shadow: -1px 1px 3px -1px rgba(0, 0, 0.75);
     -moz-box-shadow: -1px 1px 3px -1px rgba(0, 0, 0.75);
     box-shadow: -1px 1px 3px -1px rgba(0, 0, 0.75);
+
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    /* grid-template-rows: 3em 30em;  */
+    grid-template-areas: 
+        'nav-wrapper nav-wrapper'
+        'left-column right-column'
+    ;
 }
 
 .nav-wrapper{
-    border: 1px dashed blueviolet;
+    border-radius:5px 5px 0 0;
+ 
+    grid-area: nav-wrapper;
+    /* border: 1px dashed blueviolet; */
+    border-bottom: 1px solid var(--borderColor);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: var(--mainColor);
+
+}
+
+#navigation{
+    margin: 0;
+    padding: 10px;
+}
+
+#profile_pic{
+    display: block;
+    margin: 0 auto;
+
+    height: 200px;
+    width: 200px;
+    object-fit: cover;
+    border: 2px solid var(--borderColor);
+}
+
+#theme-options-wrapper{
+    display: flex;
+    justify-content: center;
+}
+
+.theme-dot{
+    height: 30px;
+    width: 30px;
+    background-color: black;
+    border-radius: 50%;
+
+    margin: 5px;
+    border: 2px solid var(--themeDotBorder);
+
+    --webkit-box-shadow: -1px 1px 3px -1px rgba(0, 0, 0.75);
+    -moz-box-shadow: -1px 1px 3px -1px rgba(0, 0, 0.75);
+    box-shadow: -1px 1px 3px -1px rgba(0, 0, 0.75);
+
+    cursor: pointer;
+
+    
+}
+
+.theme-dot:hover{
+    border-width: 5px;
+}
+
+#light-mode{
+    background-color: #fff;
+}
+
+#blue-mode{
+    background-color: #10dafd;
+}
+
+#green-mode{
+    background-color: #78866b;
+}
+
+#purple-mode{
+    background-color: #7e4c74;
+}
+
+#settings-note{
+    font-size: 12px;
+    font-style: italic;
+    text-align: center;
+}
+
+#navigation li{
+    display: inline-block;
+    margin-right: 5px;
+    margin-left: 5px;
+}
+
+.dots-wrapper{
+    display: flex;
+    padding: 10px;
+}
+
+#dot-1{
+    background-color: #f55e72;
+}
+
+#dot-2{
+    background-color: #f8c03c;
+}
+
+#dot-3{
+    background-color: #22b135;
+}
+
+.browser-dot{
+    background-color: black;
+    height: 15px;
+    width: 15px;
+    border-radius: 50%;
+    margin: 5px;
 }
 
 .left-column{
-    border: 1px dashed blueviolet;
+    grid-area: left-column;
+    /* border: 1px dashed blueviolet; */
+    padding-top: 50px;
+    padding-bottom: 50px;
 }
 
 .right-column{
-    border: 1px dashed blueviolet;
+    grid-area: right-column; 
+    /* border: 1px dashed blueviolet; */
+    display: grid;
+    align-content: center;
+
+    padding-top: 50px;
+    padding-bottom: 50px;
 }
+
+#preview-shadow{
+background-color: var(--previewShadow);
+width: 300px;
+height: 180px;
+padding-left: 30px;
+padding-top: 30px;
+}
+
+#preview{
+    width: 300px;
+    border: 1.5px solid #17a2b8;
+    background-color: var(--previewBg);
+    padding: 15px;
+    position: relative;
+}
+
+.corner{
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    border: 1.5px solid #17a2b8;
+    background-color: #fff;
+    position: absolute;
+}
+
+#corner-tl{
+    top: -5px;
+    left: -5px;
+
+}
+
+#corner-tr{
+    top: -5px;
+    right: -5px;
+
+}
+
+#corner-br{
+    bottom: -5px;
+    right: -5px;
+
+}
+
+#corner-bl{
+    bottom: -5px;
+    left: -5px;
+
+}
+
 
 
 @media screen and (max-width: 1200px) {
     .main-container{
         width: 95%;
     }
+}
+
+@media screen and (max-width: 1200px) {
+    .intro-wrapper{
+        grid-template-columns: 1fr;
+        grid-template-areas: 
+        'nav-wrapper'
+        'left-column'
+        'right-column'
+        ;
+    }
+
+.right-column{
+    justify-content: center;
+}
+    
 }
