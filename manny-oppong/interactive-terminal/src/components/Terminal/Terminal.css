@@ -1,0 +1,157 @@
+:root {
+  --mainColor: #eaeaea;
+  --secondaryColor: #fff;
+  --borderColor: #c1c1c1;
+  --mainText: black;
+  --secondaryText: #4b5156;
+  --themeDotBorder: #24292e;
+  --terminalBg: #1e1e1e;
+  --terminalHeader: #323233;
+  --terminalText: #fff;
+  --commandText: #64dd17;
+}
+
+.terminal-page {
+  background-color: var(--mainColor);
+  min-height: 100vh;
+  padding: 20px;
+  font-family: 'Roboto Mono', monospace;
+}
+
+.commands-section {
+  max-width: 1200px;
+  margin: 0 auto 20px;
+  background-color: var(--secondaryColor);
+  border: 1px solid var(--borderColor);
+  border-radius: 5px;
+  padding: 20px;
+  margin-bottom: 2rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.section-title {
+  color: var(--primary, #27c93f);
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 1.5rem;
+}
+
+.terminal-icon {
+  font-size: 1.8rem;
+}
+
+.commands-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 1rem;
+}
+
+.command-btn {
+  background: transparent;
+  color: var(--text, #ffffff);
+  border: 2px solid var(--primary, #27c93f);
+  padding: 0.8rem 1rem;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: inherit;
+  font-size: 0.9rem;
+}
+
+.command-btn:hover {
+  background: var(--primary, #27c93f);
+  color: var(--bg-dark, #2d2d2d);
+  transform: translateY(-2px);
+}
+
+.cmd-icon {
+  font-size: 1.2rem;
+}
+
+.terminal-window {
+  background: var(--bg-dark, #2d2d2d);
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.terminal-header {
+  background: #1a1a1a;
+  padding: 0.8rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.terminal-buttons {
+  display: flex;
+  gap: 8px;
+}
+
+.term-btn {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+}
+
+.close { background: #ff5f57; }
+.minimize { background: #febc2e; }
+.maximize { background: #28c840; }
+
+.terminal-title {
+  color: var(--text-dim, #888888);
+  font-size: 0.9rem;
+}
+
+.terminal-body {
+  padding: 1.5rem;
+  min-height: 400px;
+  max-height: 600px;
+  overflow-y: auto;
+  font-family: 'Roboto Mono', monospace;
+  line-height: 1.6;
+}
+
+.terminal-output {
+  margin-bottom: 1rem;
+  color: var(--text, #ffffff);
+  white-space: pre-wrap;
+  opacity: 0;
+  transform: translateY(10px);
+  animation: fadeIn 0.3s ease forwards;
+}
+
+.terminal-output.command {
+  color: var(--text, #ffffff);
+}
+
+.prompt {
+  color: var(--primary, #27c93f);
+  margin-right: 0.5rem;
+}
+
+@keyframes fadeIn {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 768px) {
+  .terminal-page {
+    margin: 1rem;
+  }
+
+  .commands-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .terminal-body {
+    min-height: 300px;
+  }
+}

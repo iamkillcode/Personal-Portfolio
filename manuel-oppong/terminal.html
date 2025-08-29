@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Emmanuel Oppong - Interactive Terminal">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <title>Emmanuel's Interactive Terminal</title>
+    <style>
+        :root {
+            --primary: #27c93f;
+            --bg-dark: #1E1E1E;
+            --bg-lighter: #2D2D2D;
+            --text: #FFFFFF;
+            --text-dim: #888888;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Roboto Mono', monospace;
+            background: var(--bg-dark);
+            color: var(--text);
+            line-height: 1.6;
+            padding: 2rem;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* Command Buttons Section */
+        .command-section {
+            background: var(--bg-lighter);
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .section-title {
+            color: var(--primary);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .commands-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 1rem;
+        }
+
+        .command-btn {
+            background: transparent;
+            color: var(--text);
+            border: 2px solid var(--primary);
+            padding: 0.8rem 1rem;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-family: inherit;
+            font-size: 0.9rem;
+        }
+
+        .command-btn:hover {
+            background: var(--primary);
+            color: var(--bg-dark);
+            transform: translateY(-2px);
+        }
+
+        .command-btn i {
+            font-size: 1.1rem;
+        }
+
+        /* Terminal Section */
+        .terminal {
+            background: var(--bg-lighter);
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .terminal-header {
+            background: #1A1A1A;
+            padding: 0.8rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .terminal-buttons {
+            display: flex;
+            gap: 8px;
+        }
+
+        .term-btn {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+
+        .close { background: #FF5F57; }
+        .minimize { background: #FEBC2E; }
+        .maximize { background: #28C840; }
+
+        .terminal-title {
+            color: var(--text-dim);
+            font-size: 0.9rem;
+        }
+
+        .terminal-body {
+            padding: 1.5rem;
+            min-height: 400px;
+            max-height: 600px;
+            overflow-y: auto;
+        }
+
+        .output-line {
+            margin-bottom: 1rem;
+            opacity: 0;
+            transform: translateY(10px);
+            animation: fadeIn 0.3s ease forwards;
+        }
+
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .prompt {
+            color: var(--primary);
+            margin-right: 0.5rem;
+        }
+
+        .output-content {
+            white-space: pre-wrap;
+            color: var(--text);
+        }
+
+        .back-link {
+            position: fixed;
+            top: 1rem;
+            left: 1rem;
+            background: var(--bg-lighter);
+            color: var(--primary);
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all 0.3s ease;
+            border: 1px solid var(--primary);
+        }
+
+        .back-link:hover {
+            background: var(--primary);
+            color: var(--bg-dark);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            body {
+                padding: 1rem;
+            }
+
+            .commands-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .terminal-body {
+                min-height: 300px;
+            }
+        }
+    </style>
+        body {
+            background-color: #1a1a1a;
+            margin: 0;
+            padding: 20px;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .full-terminal {
+            flex: 1;
+            background-color: #2d2d2d;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+        }
+
+        .back-button {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            background: #2d2d2d;
+            color: #27c93f;
+            border: 1px solid #27c93f;
+            padding: 8px 15px;
+            border-radius: 4px;
+            font-family: 'Roboto Mono', monospace;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+        .back-button:hover {
+            background: #27c93f;
+            color: #2d2d2d;
+        }
+
+        .terminal-content {
+            padding: 30px;
+            font-size: 16px;
+        }
+
+        .command-line {
+            margin: 15px 0;
+        }
+
+        .output {
+            margin: 10px 0 25px 25px;
+        }
+
+        /* Blinking cursor animation */
+        .cursor::after {
+            content: '█';
+            animation: blink 1s infinite;
+        }
+
+        @keyframes blink {
+            50% { opacity: 0; }
+        }
+    </style>
+</head>
+<body>
+    <a href="index.html" class="back-button">cd ..</a>
+    <div class="full-terminal">
+        <div class="terminal-header">
+            <div class="terminal-buttons">
+                <span class="terminal-button close"></span>
+                <span class="terminal-button minimize"></span>
+                <span class="terminal-button maximize"></span>
+            </div>
+            <div class="terminal-title">emmanuel@portfolio ~ /detailed-info</div>
+        </div>
+        <div class="terminal-content">
+            <div class="command-line">
+                <span class="prompt">$</span> whoami --verbose
+            </div>
+            <div class="output">Emmanuel Oppong is a dynamic young professional whose journey reflects a unique blend of scientific inquiry, technological innovation, and a deep commitment to societal impact.</div>
+            
+            <div class="command-line">
+                <span class="prompt">$</span> cat education/details.txt
+            </div>
+            <div class="output">- BSc in Chemistry from Kwame Nkrumah University of Science and Technology (KNUST)
+- Specialized in computational chemistry and catalysis
+- Final-year project: Investigation of hydrous hydrazine decomposition on nickel catalyst with potassium hydroxide</div>
+            
+            <div class="command-line">
+                <span class="prompt">$</span> cat current_position.txt
+            </div>
+            <div class="output">Currently serving as national service personnel at the Food and Drugs Authority (FDA) in Accra:
+- Working with Drug Physicochemical Laboratory
+- Managing Supply Chain Management Unit
+- Drafting technical reports
+- Conducting vendor assessments
+- Ensuring compliance with public procurement protocols</div>
+            
+            <div class="command-line">
+                <span class="prompt">$</span> ls -la projects/
+            </div>
+            <div class="output">drwxr-xr-x  ChaleCheck/     # Business review platform
+drwxr-xr-x  NextWave/       # Digital space for underground artists
+-rw-r--r--  research.pdf    # Computational chemistry research</div>
+            
+            <div class="command-line">
+                <span class="prompt">$</span> cat expertise.txt
+            </div>
+            <div class="output">Areas of Expertise:
+- Data Science and Analytics
+- Cybersecurity fundamentals
+- Artificial Intelligence
+- Environmental Chemistry
+- Bioinformatics
+- Responsible AI Development
+- Technical Writing
+- Project Management</div>
+            
+            <div class="command-line">
+                <span class="prompt">$</span> echo $INTERESTS
+            </div>
+            <div class="output">Passionate about:
+- Intersection of science and technology
+- Environmental sustainability
+- AI ethics and responsibility
+- Innovation in chemical analysis
+- Open source contributions</div>
+            
+            <div class="command-line">
+                <span class="prompt">$</span> <span class="cursor"></span>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

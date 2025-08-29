@@ -1,0 +1,13 @@
+.App {
+  min-height: 100vh;
+  background-color: #1a1a1a;
+  padding: 20px;
+}
+
+:root {
+  --primary: #27c93f;
+  --bg-dark: #2d2d2d;
+  --bg-darker: #1a1a1a;
+  --text: #ffffff;
+  --text-dim: #888888;
+}
